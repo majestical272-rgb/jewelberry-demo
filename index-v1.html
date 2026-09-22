@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jewelberry Georgia — глэмпинг-отель под Тбилиси · Цены и бронирование</title>
+<meta name="description" content="Jewelberry Georgia — глэмпинг-отель в 30 минутах от Тбилиси. Купольные коттеджи с джакузи и фурако, бассейн, ресторан, панорама долины. Забронируйте отдых.">
+<meta name="theme-color" content="#FBFAF7">
+<meta property="og:title" content="Jewelberry Georgia — глэмпинг-отель под Тбилиси">
+<meta property="og:description" content="Купольные коттеджи с джакузи, фурако и панорамой. 30 минут от Тбилиси.">
+<meta property="og:image" content="assets/img/hero.webp">
+<link rel="icon" href="assets/img/mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   JEWELBERRY GEORGIA — глэмпинг-лендинг
+   Чистый HTML/CSS/JS. Единственная внешняя зависимость — Google Fonts.
+
+   ▸ ЦЕНЫ: блок «СЕКЦИЯ 05 — ЦЕНЫ И БРОНИРОВАНИЕ».
+     4 карточки тарифов с плейсхолдером «— GEL».
+     Меняешь тире на сумму, например «450 GEL». Больше нигде не надо.
+   ▸ КОНТАКТЫ: секция 11 + футер. Телефон/Telegram/WhatsApp.
+
+   ДИЗАЙН-СИСТЕМА
+   Палитра построена от логотипа: зелёный #8CAE49 и чёрный #1C1C1C.
+   Важно: #8CAE49 на белом даёт контраст всего 2.4:1 — как ТЕКСТ он
+   нечитаем. Поэтому зелёный работает только заливкой (с тёмным
+   текстом поверх — 8.6:1), а для зелёного текста есть --brand-ink.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Токены ─────────────────────────────────────────────────── */
+:root{
+  /* Поверхности: тёплые, не стерильно-белые */
+  --bg:#FBFAF7;
+  --surface:#FFFFFF;
+  --sand:#F3F0E8;
+  --sand-deep:#EAE5D9;
+
+  /* Чернила */
+  --ink:#1C1C1C;
+  --ink-2:#4A4A44;
+  --ink-3:#6E6E66;
+
+  /* Бренд */
+  --brand:#8CAE49;
+  --brand-hover:#7D9C3F;
+  --brand-ink:#4F6B26;
+  --brand-tint:#F1F5E7;
+
+  /* Тёмные секции */
+  --dark:#171A12;
+  --dark-2:#1F2318;
+  --dark-line:rgba(247,244,237,.14);
+  --on-dark:#F7F4ED;
+  --on-dark-2:#B9B6AB;
+
+  --line:rgba(28,28,28,.10);
+  --line-2:rgba(28,28,28,.18);
+
+  /* Шкала отступов (8pt) */
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px;
+  --s6:32px; --s7:40px; --s8:56px; --s9:72px; --s10:96px;
+
+  /* Радиусы */
+  --r-sm:10px; --r:16px; --r-lg:24px; --r-xl:32px; --r-pill:100px;
+
+  /* Тени: многослойные, мягкие */
+  --sh-1:0 1px 2px rgba(28,28,28,.04), 0 2px 8px rgba(28,28,28,.04);
+  --sh-2:0 2px 4px rgba(28,28,28,.04), 0 8px 24px rgba(28,28,28,.07);
+  --sh-3:0 4px 8px rgba(28,28,28,.05), 0 18px 44px rgba(28,28,28,.11);
+  --sh-brand:0 10px 30px -8px rgba(140,174,73,.5);
+
+  --maxw:1240px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --ease-out:cubic-bezier(.16,1,.3,1);
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Manrope',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--sans);
+  background:var(--bg);
+  color:var(--ink);
+  font-size:17px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+img,svg{display:block;max-width:100%}
+img{height:auto}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;border:none;background:none}
+::selection{background:var(--brand);color:var(--ink)}
+
+/* Доступный фокус — видно только с клавиатуры */
+:focus-visible{outline:2px solid var(--brand-ink);outline-offset:3px;border-radius:4px}
+
+/* ── Каркас ─────────────────────────────────────────────────── */
+.wrap{width:100%;max-width:var(--maxw);margin-inline:auto;padding-inline:clamp(20px,5vw,40px)}
+.section{padding-block:clamp(72px,10vw,136px)}
+.section--tight{padding-top:0}
+
+/* ── Типографика ────────────────────────────────────────────── */
+/* Cormorant по умолчанию даёт минускульные цифры («10» читается как
+   «ІО») — принудительно включаем маюскульные везде, где есть числа */
+h1,h2,h3,h4,.num,.price,.stat b{
+  font-variant-numeric:lining-nums;
+  font-feature-settings:"lnum" 1;
+}
+.display{
+  font-family:var(--serif);
+  font-weight:500;
+  line-height:1.04;
+  letter-spacing:-.022em;
+}
+h1.display{font-size:clamp(42px,5.6vw,74px)}
+h2.display{font-size:clamp(34px,4.6vw,60px)}
+.display em{font-style:italic;color:var(--brand-ink);font-weight:500}
+
+h3{font-family:var(--sans);font-size:20px;font-weight:600;line-height:1.3;letter-spacing:-.01em}
+
+.eyebrow{
+  display:inline-flex;align-items:center;gap:var(--s3);
+  font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--brand-ink);margin-bottom:var(--s5);
+}
+.eyebrow::before{content:"";width:22px;height:2px;background:var(--brand);border-radius:2px}
+
+.lead{font-size:clamp(17px,1.7vw,19px);color:var(--ink-2);max-width:56ch}
+.muted{color:var(--ink-3)}
+
+/* Крупные заголовки балансируем по строкам, чтобы курсивный хвост
+   не отваливался вниз одиноким словом */
+.display{text-wrap:balance}
+.lead{text-wrap:pretty}
+
+/* Шапка секции: одна доминанта, ограниченная длина строки */
+.head{max-width:820px;margin-bottom:clamp(40px,5vw,var(--s9))}
+.head--center{margin-inline:auto;text-align:center}
+.head--center .eyebrow{justify-content:center}
+.head .lead{margin-top:var(--s5)}
+
+/* ── Кнопки ─────────────────────────────────────────────────── */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  min-height:54px;padding:0 var(--s6);border-radius:var(--r-pill);
+  font-size:15.5px;font-weight:600;letter-spacing:.005em;white-space:nowrap;
+  transition:transform .3s var(--ease-out),box-shadow .3s var(--ease-out),
+             background-color .2s,border-color .2s,color .2s;
+}
+.btn:active{transform:translateY(0) scale(.985)}
+
+/* Зелёная заливка + тёмный текст = контраст 8.6:1 */
+.btn--primary{background:var(--brand);color:var(--ink);box-shadow:var(--sh-brand)}
+.btn--primary:hover{background:var(--brand-hover);transform:translateY(-2px);box-shadow:0 14px 34px -8px rgba(140,174,73,.6)}
+
+.btn--ghost{border:1.5px solid var(--line-2);color:var(--ink);background:transparent}
+.btn--ghost:hover{border-color:var(--ink);transform:translateY(-2px)}
+
+.btn--on-dark{background:var(--brand);color:var(--ink)}
+.btn--on-dark:hover{background:#9BBE55;transform:translateY(-2px)}
+
+.btn--ghost-dark{border:1.5px solid var(--dark-line);color:var(--on-dark)}
+.btn--ghost-dark:hover{border-color:var(--on-dark);transform:translateY(-2px)}
+
+.btn--block{width:100%}
+.btn--sm{min-height:46px;padding:0 var(--s5);font-size:14.5px}
+
+/* Текстовая ссылка со скользящим подчёркиванием */
+.link{
+  display:inline-flex;align-items:center;gap:8px;
+  font-weight:600;font-size:15.5px;color:var(--brand-ink);
+  padding-bottom:2px;background-image:linear-gradient(var(--brand),var(--brand));
+  background-size:0% 1.5px;background-position:0 100%;background-repeat:no-repeat;
+  transition:background-size .4s var(--ease-out);
+}
+.link:hover{background-size:100% 1.5px}
+.link svg{width:15px;height:15px;transition:transform .3s var(--ease-out)}
+.link:hover svg{transform:translateX(4px)}
+
+/* ── Header ─────────────────────────────────────────────────── */
+.header{
+  position:fixed;inset:0 0 auto;z-index:100;
+  padding-block:var(--s5);
+  transition:padding .35s var(--ease),background-color .35s,box-shadow .35s,border-color .35s;
+  border-bottom:1px solid transparent;
+}
+.header.is-stuck{
+  padding-block:var(--s3);
+  background:rgba(251,250,247,.86);
+  backdrop-filter:blur(18px) saturate(1.4);
+  -webkit-backdrop-filter:blur(18px) saturate(1.4);
+  border-bottom-color:var(--line);
+}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:var(--s5)}
+.brand{flex:0 0 auto}
+.brand img{height:34px;width:auto;transition:height .35s var(--ease)}
+.header.is-stuck .brand img{height:30px}
+.nav-links{display:flex;align-items:center;gap:var(--s6)}
+.nav-links a{
+  font-size:15px;font-weight:500;color:var(--ink-2);position:relative;padding-block:4px;
+  transition:color .25s;
+}
+.nav-links a::after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:1.5px;
+  background:var(--brand);transform:scaleX(0);transform-origin:right;
+  transition:transform .35s var(--ease-out);
+}
+.nav-links a:hover{color:var(--ink)}
+.nav-links a:hover::after{transform:scaleX(1);transform-origin:left}
+.nav-side{display:flex;align-items:center;gap:var(--s4)}
+
+.burger{
+  display:none;width:46px;height:46px;border-radius:var(--r-sm);
+  align-items:center;justify-content:center;flex-direction:column;gap:5px;
+  border:1px solid var(--line-2);
+}
+.burger span{width:20px;height:1.5px;background:var(--ink);border-radius:2px;transition:.3s var(--ease)}
+.burger[aria-expanded="true"] span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+
+/* ── HERO: асимметричный сплит ──────────────────────────────
+   Текст живёт на кремовом фоне, а не поверх фотографии —
+   поэтому читается при любом освещении кадра.            */
+.hero{padding-top:clamp(112px,15vw,160px);padding-bottom:clamp(48px,7vw,88px);overflow:hidden}
+.hero-grid{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.92fr);
+  gap:clamp(32px,5vw,64px);align-items:center;
+}
+.hero-copy{max-width:660px}
+.hero h1{margin-bottom:var(--s5)}
+.hero .lead{font-size:clamp(17px,1.8vw,20px);max-width:48ch}
+.hero-actions{display:flex;flex-wrap:wrap;gap:var(--s3);margin-top:var(--s7)}
+
+.hero-media{position:relative}
+.hero-media .shot{
+  border-radius:var(--r-xl);overflow:hidden;box-shadow:var(--sh-3);
+  aspect-ratio:4/3.1;background:var(--sand);
+}
+.hero-media .shot img{width:100%;height:100%;object-fit:cover;animation:slowZoom 24s var(--ease) forwards}
+@keyframes slowZoom{from{transform:scale(1.07)}to{transform:scale(1)}}
+
+/* Карточка-плашка поверх фото */
+.hero-chip{
+  position:absolute;left:-18px;bottom:26px;
+  display:flex;align-items:center;gap:var(--s3);
+  background:var(--surface);border-radius:var(--r-pill);
+  padding:10px 20px 10px 12px;box-shadow:var(--sh-2);
+}
+.hero-chip .dot{
+  width:34px;height:34px;border-radius:50%;background:var(--brand-tint);
+  display:grid;place-items:center;color:var(--brand-ink);flex:0 0 auto;
+}
+.hero-chip .dot svg{width:17px;height:17px}
+.hero-chip span{font-size:14px;font-weight:600;line-height:1.25}
+.hero-chip small{display:block;font-size:12px;color:var(--ink-3);font-weight:500}
+
+/* Полоса доверия */
+.stats{
+  display:flex;flex-wrap:wrap;gap:clamp(24px,4vw,var(--s8));
+  margin-top:clamp(40px,5vw,var(--s8));padding-top:var(--s6);
+  border-top:1px solid var(--line);
+}
+.stat b{display:block;font-family:var(--serif);font-size:clamp(30px,3.4vw,42px);font-weight:600;line-height:1;color:var(--ink)}
+.stat span{display:block;font-size:13.5px;color:var(--ink-3);margin-top:6px}
+
+/* ── Карточки преимуществ ───────────────────────────────────── */
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s5)}
+.card{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);
+  padding:var(--s7) var(--s6);box-shadow:var(--sh-1);
+  transition:transform .45s var(--ease-out),box-shadow .45s var(--ease-out);
+}
+.card:hover{transform:translateY(-5px);box-shadow:var(--sh-3)}
+.card .ic{
+  width:52px;height:52px;border-radius:var(--r);background:var(--brand-tint);
+  display:grid;place-items:center;color:var(--brand-ink);margin-bottom:var(--s5);
+  transition:background-color .35s,transform .45s var(--ease-out);
+}
+.card:hover .ic{background:var(--brand);color:var(--ink);transform:scale(1.06) rotate(-3deg)}
+.card .ic svg{width:25px;height:25px}
+.card h3{margin-bottom:var(--s2)}
+.card p{font-size:15.5px;color:var(--ink-2)}
+
+/* ── Размещение ─────────────────────────────────────────────── */
+.stay{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--s5)}
+.stay-card{
+  position:relative;grid-column:span 4;border-radius:var(--r-lg);overflow:hidden;
+  min-height:380px;display:flex;align-items:flex-end;isolation:isolate;
+  box-shadow:var(--sh-1);transition:transform .5s var(--ease-out),box-shadow .5s var(--ease-out);
+}
+.stay-card:hover{transform:translateY(-5px);box-shadow:var(--sh-3)}
+.stay-card--wide{grid-column:span 8;min-height:440px}
+.stay-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform .9s var(--ease-out)}
+.stay-card::after{
+  content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(to top,rgba(14,16,10,.88) 0%,rgba(14,16,10,.45) 42%,rgba(14,16,10,.06) 72%);
+}
+.stay-card:hover img{transform:scale(1.06)}
+.stay-body{padding:var(--s6);color:var(--on-dark)}
+.tag{
+  display:inline-block;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink);background:var(--brand);padding:5px 12px;border-radius:var(--r-pill);margin-bottom:var(--s3);
+}
+.stay-card h3{font-size:23px;color:var(--on-dark);margin-bottom:6px}
+.stay-card p{font-size:15px;color:rgba(247,244,237,.82);max-width:42ch}
+
+/* ── Цены и форма ───────────────────────────────────────────── */
+.booking{background:var(--sand)}
+.booking-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,4.5vw,var(--s9));align-items:start}
+.tariffs{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4)}
+.tariff{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);
+  padding:var(--s6) var(--s5);position:relative;
+  transition:transform .45s var(--ease-out),box-shadow .45s var(--ease-out),border-color .3s;
+}
+.tariff:hover{transform:translateY(-4px);box-shadow:var(--sh-2)}
+.tariff--hit{border-color:var(--brand);box-shadow:0 0 0 1px var(--brand)}
+.tariff .ribbon{
+  position:absolute;top:var(--s5);right:var(--s5);
+  font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink);background:var(--brand);padding:4px 10px;border-radius:var(--r-pill);
+}
+.tariff h3{font-size:19px;margin-bottom:2px}
+.tariff .meta{font-size:13px;color:var(--ink-3);margin-bottom:var(--s5)}
+.price{
+  font-family:var(--serif);font-size:38px;font-weight:600;line-height:1;
+  color:var(--ink);display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;
+}
+.price small{font-family:var(--sans);font-size:13px;font-weight:500;color:var(--ink-3)}
+.price--ask{font-size:30px;color:var(--brand-ink)}
+.tariff ul{list-style:none;margin-top:var(--s5);display:flex;flex-direction:column;gap:9px}
+.tariff li{font-size:14px;color:var(--ink-2);display:flex;gap:10px;align-items:flex-start;line-height:1.45}
+.tariff li::before{
+  content:"";width:15px;height:15px;flex:0 0 auto;margin-top:4px;background:var(--brand);
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M20 6L9 17l-5-5' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M20 6L9 17l-5-5' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+.note{font-size:13.5px;color:var(--ink-3);margin-top:var(--s5);line-height:1.55;max-width:52ch}
+
+/* Форма */
+.form-card{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r-xl);
+  padding:clamp(24px,3vw,var(--s7));box-shadow:var(--sh-2);position:sticky;top:104px;
+}
+.form-card h3{font-size:24px;letter-spacing:-.015em}
+.form-card .sub{font-size:14.5px;color:var(--ink-3);margin-top:4px;margin-bottom:var(--s6)}
+.field{margin-bottom:var(--s4)}
+.field label{display:block;font-size:13px;font-weight:600;color:var(--ink-2);margin-bottom:7px}
+.field .opt{font-weight:500;color:var(--ink-3)}
+.field input,.field select,.field textarea{
+  width:100%;min-height:52px;padding:14px 16px;background:var(--bg);
+  border:1.5px solid var(--line);border-radius:var(--r);font-size:15.5px;
+  transition:border-color .2s,box-shadow .2s,background-color .2s;
+}
+.field textarea{min-height:auto;resize:vertical}
+.field input::placeholder,.field textarea::placeholder{color:var(--ink-3);opacity:.8}
+.field input:hover,.field select:hover,.field textarea:hover{border-color:var(--line-2)}
+.field input:focus,.field select:focus,.field textarea:focus{
+  outline:none;border-color:var(--brand);background:var(--surface);
+  box-shadow:0 0 0 4px rgba(140,174,73,.16);
+}
+.field select{
+  appearance:none;cursor:pointer;padding-right:44px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236E6E66' stroke-width='2.2' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 16px center;background-size:17px;
+}
+.field.is-invalid input,.field.is-invalid select{border-color:#C0492B;background:#FDF5F3}
+.field .err{display:none;font-size:12.5px;font-weight:500;color:#C0492B;margin-top:6px}
+.field.is-invalid .err{display:block;animation:shake .35s var(--ease)}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
+.row-2{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3)}
+.consent{font-size:12.5px;color:var(--ink-3);text-align:center;margin-top:var(--s4);line-height:1.5}
+
+.success{display:none;text-align:center;padding:var(--s6) 0}
+.success.is-on{display:block;animation:rise .55s var(--ease-out)}
+@keyframes rise{from{opacity:0;transform:translateY(12px) scale(.97)}to{opacity:1;transform:none}}
+.success .mark{
+  width:68px;height:68px;border-radius:50%;background:var(--brand-tint);
+  display:grid;place-items:center;margin:0 auto var(--s5);color:var(--brand-ink);
+}
+.success .mark svg{width:32px;height:32px;stroke-dasharray:32;stroke-dashoffset:32;animation:draw .5s .2s var(--ease-out) forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.success h3{font-size:23px;margin-bottom:var(--s2)}
+.success p{font-size:15.5px;color:var(--ink-2);max-width:40ch;margin-inline:auto}
+
+/* ── Впечатления ────────────────────────────────────────────── */
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s4)}
+.exp{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);
+  padding:var(--s6) var(--s5);
+  transition:transform .45s var(--ease-out),box-shadow .45s var(--ease-out);
+}
+.exp:hover{transform:translateY(-5px);box-shadow:var(--sh-2)}
+.exp .num{font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--brand-ink)}
+.exp .ic{width:38px;height:38px;color:var(--brand-ink);margin:var(--s4) 0 var(--s4)}
+.exp .ic svg{width:38px;height:38px}
+.exp h3{font-size:17.5px;margin-bottom:6px}
+.exp p{font-size:14px;color:var(--ink-2)}
+
+/* ── Галерея ────────────────────────────────────────────────── */
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:186px;gap:var(--s3)}
+.shot-btn{
+  position:relative;overflow:hidden;border-radius:var(--r);cursor:pointer;
+  background:var(--sand);box-shadow:var(--sh-1);
+  transition:transform .45s var(--ease-out),box-shadow .45s var(--ease-out);
+}
+.shot-btn img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease-out)}
+.shot-btn::after{
+  content:"";position:absolute;inset:0;background:rgba(14,16,10,.18);
+  opacity:0;transition:opacity .4s;
+}
+.shot-btn:hover{transform:translateY(-3px);box-shadow:var(--sh-2)}
+.shot-btn:hover img{transform:scale(1.07)}
+.shot-btn:hover::after{opacity:1}
+.shot-btn .plus{
+  position:absolute;right:12px;bottom:12px;width:36px;height:36px;border-radius:50%;
+  background:rgba(251,250,247,.94);color:var(--ink);display:grid;place-items:center;
+  opacity:0;transform:translateY(8px) scale(.9);transition:.4s var(--ease-out);
+}
+.shot-btn .plus svg{width:16px;height:16px}
+.shot-btn:hover .plus{opacity:1;transform:none}
+.w2{grid-column:span 2}
+.h2{grid-row:span 2}
+
+/* Лайтбокс */
+.lightbox{
+  position:fixed;inset:0;z-index:200;background:rgba(14,16,10,.93);
+  backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;padding:clamp(16px,4vw,48px);
+}
+.lightbox.is-on{display:flex;animation:fadeIn .3s}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.lightbox img{max-width:min(92vw,1200px);max-height:86vh;border-radius:var(--r);box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.lb-btn{
+  position:absolute;width:52px;height:52px;border-radius:50%;
+  background:rgba(247,244,237,.12);border:1px solid rgba(247,244,237,.22);color:var(--on-dark);
+  display:grid;place-items:center;transition:background-color .25s,transform .25s;
+}
+.lb-btn:hover{background:rgba(247,244,237,.24);transform:scale(1.06)}
+.lb-btn svg{width:20px;height:20px}
+.lb-close{top:clamp(16px,3vw,28px);right:clamp(16px,3vw,28px)}
+.lb-prev{left:clamp(12px,2.5vw,28px);top:50%;margin-top:-26px}
+.lb-next{right:clamp(12px,2.5vw,28px);top:50%;margin-top:-26px}
+.lb-count{
+  position:absolute;bottom:clamp(16px,3vw,28px);left:50%;transform:translateX(-50%);
+  font-size:13.5px;font-weight:500;color:var(--on-dark-2);
+  background:rgba(247,244,237,.1);padding:6px 16px;border-radius:var(--r-pill);
+}
+
+/* ── Шаги ───────────────────────────────────────────────────── */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s5);position:relative}
+.step{text-align:center;position:relative}
+.step .circle{
+  width:76px;height:76px;border-radius:50%;margin:0 auto var(--s5);
+  display:grid;place-items:center;background:var(--surface);
+  border:1px solid var(--line);color:var(--brand-ink);box-shadow:var(--sh-1);
+  position:relative;z-index:2;
+  transition:transform .45s var(--ease-out),box-shadow .45s var(--ease-out),background-color .35s,color .35s;
+}
+.step:hover .circle{transform:translateY(-4px);box-shadow:var(--sh-2);background:var(--brand);color:var(--ink)}
+.step .circle svg{width:30px;height:30px}
+.step .idx{
+  position:absolute;top:-4px;left:calc(50% + 22px);
+  width:26px;height:26px;border-radius:50%;background:var(--ink);color:var(--bg);
+  font-size:12.5px;font-weight:700;display:grid;place-items:center;z-index:3;
+}
+.step h3{font-size:18px;margin-bottom:6px}
+.step p{font-size:14.5px;color:var(--ink-2);max-width:26ch;margin-inline:auto}
+.steps::before{
+  content:"";position:absolute;top:38px;left:14%;right:14%;height:1px;
+  background:repeating-linear-gradient(90deg,var(--line-2) 0 6px,transparent 6px 12px);
+}
+
+/* ── Отзывы ─────────────────────────────────────────────────── */
+.reviews{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s5)}
+.review{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);
+  padding:var(--s7) var(--s6);box-shadow:var(--sh-1);
+  transition:transform .45s var(--ease-out),box-shadow .45s var(--ease-out);
+}
+.review:hover{transform:translateY(-4px);box-shadow:var(--sh-2)}
+.stars{display:flex;gap:3px;color:var(--brand);margin-bottom:var(--s4)}
+.stars svg{width:17px;height:17px}
+.review blockquote{
+  font-family:var(--serif);font-size:clamp(19px,2vw,22px);line-height:1.45;
+  color:var(--ink);margin-bottom:var(--s5);
+}
+.author{display:flex;align-items:center;gap:var(--s3)}
+.author .av{
+  width:44px;height:44px;border-radius:50%;background:var(--brand-tint);color:var(--brand-ink);
+  display:grid;place-items:center;font-size:15px;font-weight:700;flex:0 0 auto;
+}
+.author b{display:block;font-size:15px;font-weight:600}
+.author span{font-size:13px;color:var(--ink-3)}
+
+/* ── FAQ ────────────────────────────────────────────────────── */
+.faq{max-width:840px;margin-inline:auto}
+.q-item{border-bottom:1px solid var(--line)}
+.q-item:first-child{border-top:1px solid var(--line)}
+.q-btn{
+  width:100%;display:flex;align-items:center;justify-content:space-between;gap:var(--s5);
+  padding:var(--s6) 0;text-align:left;font-size:clamp(17px,1.8vw,19px);font-weight:600;
+  letter-spacing:-.01em;transition:color .25s;
+}
+.q-btn:hover{color:var(--brand-ink)}
+.q-btn .pm{
+  width:34px;height:34px;flex:0 0 auto;border-radius:50%;border:1px solid var(--line-2);
+  position:relative;transition:transform .4s var(--ease-out),background-color .3s,border-color .3s;
+}
+.q-btn .pm::before,.q-btn .pm::after{
+  content:"";position:absolute;top:50%;left:50%;translate:-50% -50%;
+  background:var(--ink);border-radius:2px;transition:transform .4s var(--ease-out),background-color .3s;
+}
+.q-btn .pm::before{width:13px;height:1.6px}
+.q-btn .pm::after{width:1.6px;height:13px}
+.q-item.is-open .pm{transform:rotate(135deg);background:var(--brand);border-color:var(--brand)}
+.q-item.is-open .pm::after{transform:scaleY(0)}
+.q-body{max-height:0;overflow:hidden;transition:max-height .45s var(--ease-out)}
+.q-body p{padding-bottom:var(--s6);font-size:16px;color:var(--ink-2);max-width:68ch}
+
+/* ── Тёмная секция: контакты + финальный CTA ────────────────── */
+.contact{background:var(--dark);color:var(--on-dark)}
+.contact .display em{color:var(--brand)}
+.contact .eyebrow{color:var(--brand)}
+.contact .eyebrow::before{background:var(--brand)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(36px,5vw,var(--s9));align-items:center}
+.contact .lead{color:var(--on-dark-2)}
+.c-list{margin:var(--s7) 0 var(--s6)}
+.c-row{
+  display:flex;align-items:center;gap:var(--s4);padding:var(--s4) 0;
+  border-bottom:1px solid var(--dark-line);transition:padding-left .3s var(--ease-out);
+}
+.c-row:hover{padding-left:6px}
+.c-row .ic{
+  width:44px;height:44px;border-radius:var(--r);background:rgba(140,174,73,.16);
+  color:var(--brand);display:grid;place-items:center;flex:0 0 auto;transition:background-color .3s,color .3s;
+}
+.c-row:hover .ic{background:var(--brand);color:var(--ink)}
+.c-row .ic svg{width:19px;height:19px}
+.c-row small{display:block;font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--on-dark-2)}
+.c-row b{font-size:16.5px;font-weight:600}
+.socials{display:flex;gap:10px;flex-wrap:wrap}
+.socials a{
+  width:48px;height:48px;border-radius:var(--r);border:1px solid var(--dark-line);
+  color:var(--on-dark-2);display:grid;place-items:center;
+  transition:color .3s,border-color .3s,transform .35s var(--ease-out),background-color .3s;
+}
+.socials a:hover{color:var(--ink);background:var(--brand);border-color:var(--brand);transform:translateY(-4px)}
+.socials svg{width:20px;height:20px}
+.contact-media{border-radius:var(--r-xl);overflow:hidden;box-shadow:0 30px 70px rgba(0,0,0,.4);aspect-ratio:4/4.4}
+.contact-media img{width:100%;height:100%;object-fit:cover}
+
+/* ── Footer ─────────────────────────────────────────────────── */
+.footer{background:var(--dark-2);color:var(--on-dark-2);padding-block:var(--s9) var(--s6)}
+.f-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:var(--s7);margin-bottom:var(--s8)}
+.f-brand img{height:36px;width:auto;margin-bottom:var(--s5)}
+.f-brand p{font-size:14.5px;max-width:34ch;line-height:1.6}
+.f-col h4{font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--on-dark);margin-bottom:var(--s4)}
+.f-col a{display:block;font-size:14.5px;padding:6px 0;transition:color .25s,transform .25s var(--ease-out)}
+.f-col a:hover{color:var(--brand);transform:translateX(3px)}
+.f-bottom{
+  display:flex;justify-content:space-between;align-items:center;gap:var(--s5);flex-wrap:wrap;
+  padding-top:var(--s5);border-top:1px solid var(--dark-line);font-size:13px;
+}
+.f-bottom p{max-width:60ch;line-height:1.5}
+
+/* ── Мобильная плавающая кнопка ─────────────────────────────── */
+.dock{
+  position:fixed;left:16px;right:16px;bottom:16px;z-index:90;display:none;
+  opacity:0;transform:translateY(90px);transition:opacity .4s var(--ease-out),transform .4s var(--ease-out);
+}
+.dock.is-on{opacity:1;transform:none}
+.dock .btn{box-shadow:0 12px 32px -6px rgba(140,174,73,.65),0 2px 8px rgba(28,28,28,.18)}
+
+/* ── Reveal ─────────────────────────────────────────────────── */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .75s var(--ease-out),transform .75s var(--ease-out)}
+.rv.is-in{opacity:1;transform:none}
+
+/* ═══════════ АДАПТИВ ═══════════ */
+@media(max-width:1080px){
+  .grid-4{grid-template-columns:repeat(2,1fr)}
+  .hero-grid{grid-template-columns:1fr;gap:var(--s7)}
+  .hero-copy{max-width:640px}
+  .hero-media .shot{aspect-ratio:16/10}
+  .hero-chip{left:16px}
+  .form-card{position:static}
+  .booking-grid{grid-template-columns:1fr}
+  .contact-grid{grid-template-columns:1fr}
+  .contact-media{aspect-ratio:16/10;order:-1}
+  .f-top{grid-template-columns:1fr 1fr;gap:var(--s6)}
+  .steps{grid-template-columns:repeat(2,1fr);gap:var(--s7) var(--s5)}
+  .steps::before{display:none}
+  .step .idx{left:calc(50% + 22px)}
+}
+/* Меню + CTA перестают помещаться в строку раньше, чем начинается
+   «мобильная» вёрстка, — поэтому бургер включаем уже на 980px */
+@media(max-width:980px){
+  .nav-links,.nav-side .btn{display:none}
+  .burger{display:flex}
+  .nav-links.is-open{
+    display:flex;flex-direction:column;align-items:stretch;gap:0;
+    position:absolute;left:0;right:0;top:100%;
+    background:rgba(251,250,247,.97);backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    padding:var(--s2) clamp(20px,5vw,40px) var(--s5);
+    box-shadow:var(--sh-2);
+  }
+  .nav-links.is-open a{padding:16px 0;border-bottom:1px solid var(--line);font-size:16.5px}
+  .nav-links.is-open a:last-child{border-bottom:none}
+  .nav-links.is-open a::after{display:none}
+  .dock{display:block}
+  /* место под плавающую кнопку, чтобы она ничего не перекрывала */
+  .contact{padding-bottom:calc(var(--s10) + 40px)}
+}
+
+@media(max-width:860px){
+  .grid-3{grid-template-columns:repeat(2,1fr)}
+  .stay-card,.stay-card--wide{grid-column:span 6}
+  .gallery{grid-template-columns:repeat(3,1fr);grid-auto-rows:150px}
+}
+@media(max-width:700px){
+  body{font-size:16px}
+  .hero{padding-top:104px}
+  .hero-actions{gap:10px}
+  .hero-actions .btn{flex:1 1 100%}
+  .stats{gap:var(--s5) var(--s6)}
+  .stat{flex:1 1 40%}
+
+  .grid-3,.grid-4,.reviews{grid-template-columns:1fr}
+  .stay-card,.stay-card--wide{grid-column:span 12;min-height:320px}
+  .tariffs{grid-template-columns:1fr}
+  .row-2{grid-template-columns:1fr}
+  .gallery{grid-template-columns:repeat(2,1fr);grid-auto-rows:132px;gap:10px}
+  .w2{grid-column:span 2}
+  .h2{grid-row:span 1}
+  .f-top{grid-template-columns:1fr;gap:var(--s6)}
+  .f-bottom{flex-direction:column;align-items:flex-start;gap:var(--s3)}
+  .lb-prev,.lb-next{width:46px;height:46px;margin-top:-23px}
+}
+@media(max-width:420px){
+  .stay-body{padding:var(--s5)}
+  .card,.exp,.review{padding:var(--s6) var(--s5)}
+}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  html{scroll-behavior:auto}
+  .rv{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════ HEADER ═══════ -->
+<header class="header" id="header">
+  <div class="wrap nav">
+    <a href="#top" class="brand" aria-label="Jewelberry Georgia — на главную">
+      <img src="assets/img/logo.svg" alt="Jewelberry — Glamping Hotel Georgia" width="195" height="34">
+    </a>
+    <nav class="nav-links" id="navLinks" aria-label="Основная навигация">
+      <a href="#stay">Размещение</a>
+      <a href="#booking">Цены</a>
+      <a href="#experiences">Впечатления</a>
+      <a href="#gallery">Галерея</a>
+      <a href="#faq">Вопросы</a>
+      <a href="#contact">Контакты</a>
+    </nav>
+    <div class="nav-side">
+      <a href="#booking" class="btn btn--primary btn--sm">Забронировать</a>
+      <button class="burger" id="burger" aria-label="Меню" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════ 01 · HERO ═══════
+     Текст на кремовом фоне, фото рядом — читаемость не зависит
+     от того, насколько светлый кадр.                          -->
+<main id="top">
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow rv">30 минут от Тбилиси</span>
+        <h1 class="display rv" style="transition-delay:.06s">Отдых, где комфорт встречает <em>дикую природу</em></h1>
+        <p class="lead rv" style="transition-delay:.12s">Купольные коттеджи с джакузи и фурако, панорама долины и звёздное небо Грузии. Место, где обо всём уже позаботились за вас.</p>
+        <div class="hero-actions rv" style="transition-delay:.18s">
+          <a href="#booking" class="btn btn--primary">Забронировать отдых</a>
+          <a href="#stay" class="btn btn--ghost">Смотреть купола</a>
+        </div>
+      </div>
+      <div class="hero-media rv" style="transition-delay:.1s">
+        <div class="shot">
+          <img src="assets/img/hero.webp" alt="Купольный коттедж Jewelberry с бассейном на закате" fetchpriority="high" width="1024" height="768">
+        </div>
+        <div class="hero-chip">
+          <span class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg></span>
+          <span>Топ-5 глэмпингов Грузии<small>гости из 94 стран</small></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="stats rv">
+      <div class="stat"><b>10</b><span>уютных куполов</span></div>
+      <div class="stat"><b>28–36 м²</b><span>площадь купола</span></div>
+      <div class="stat"><b>150 м</b><span>глубина скважины</span></div>
+      <div class="stat"><b>2 км</b><span>дорожка вокруг парка</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ 02 · ПРЕИМУЩЕСТВА ═══════ -->
+<section class="section" id="about">
+  <div class="wrap">
+    <div class="head rv">
+      <span class="eyebrow">Место, где комфортно</span>
+      <h2 class="display">Мы продумали <em>каждую мелочь</em></h2>
+      <p class="lead">Качественный сервис и уютная планировка: большой открытый бассейн с баром, ресторан, беседки и открытый кинотеатр — всё, чтобы вы просто отдыхали.</p>
+    </div>
+    <div class="grid-3">
+      <article class="card rv">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21L12 4l9 17"/><path d="M3 21h18"/><path d="M9 21v-5a3 3 0 016 0v5"/></svg></span>
+        <h3>Комфортабельные купола</h3>
+        <p>Десять куполов 28 м² и 36 м² с туалетом, душем, кухней, кондиционером, террасой, газоном и зоной гриль.</p>
+      </article>
+      <article class="card rv" style="transition-delay:.08s">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16v4a4 4 0 01-4 4H8a4 4 0 01-4-4z"/><path d="M8 12V7a2 2 0 014 0M12 12V6a2 2 0 014 0v6"/><path d="M6 20l-1 2M18 20l1 2"/></svg></span>
+        <h3>Джакузи, фурако и костёр</h3>
+        <p>Японская купель под открытым небом и подготовленный участок для уютных ночных посиделок у огня.</p>
+      </article>
+      <article class="card rv" style="transition-delay:.16s">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M3 17l4 4M21 17l-4 4M8 9h8"/></svg></span>
+        <h3>Лаунж и кинотеатр</h3>
+        <p>Уютная зона с пуфиками, большим экраном и проектором под открытым звёздным небом.</p>
+      </article>
+      <article class="card rv">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11l1.5-4.5A2 2 0 018.4 5h7.2a2 2 0 011.9 1.5L19 11"/><rect x="3" y="11" width="18" height="7" rx="2"/><circle cx="7.5" cy="14.5" r="1.1"/><circle cx="16.5" cy="14.5" r="1.1"/></svg></span>
+        <h3>Охраняемая парковка</h3>
+        <p>Всем постояльцам доступна бесплатная охраняемая парковка на территории глэмпинга.</p>
+      </article>
+      <article class="card rv" style="transition-delay:.08s">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v7a3 3 0 006 0V3M9 3v18M15 3c-1 2-1 5 0 7 1-2 1-5 0-7zM15 10v11"/></svg></span>
+        <h3>Гриль-парк и ресторан</h3>
+        <p>Европейская и грузинская кухня ежедневно с 09:00 до 23:00. Ужины у гриля на природе.</p>
+      </article>
+      <article class="card rv" style="transition-delay:.16s">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5a10 10 0 0114 0M8 15.5a6 6 0 018 0M12 19h.01"/></svg></span>
+        <h3>Wi-Fi на всей территории</h3>
+        <p>Бесплатный скоростной интернет по всему отелю — и питьевая вода с глубины 150 метров.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ 03 · РАЗМЕЩЕНИЕ ═══════ -->
+<section class="section section--tight" id="stay">
+  <div class="wrap">
+    <div class="head rv">
+      <span class="eyebrow">Размещение</span>
+      <h2 class="display">Купольные коттеджи <em>с видом</em></h2>
+      <p class="lead">Каждый купол — отдельный мир: панорамное окно на долину, своя терраса, джакузи и зона гриля.</p>
+    </div>
+    <div class="stay">
+      <article class="stay-card stay-card--wide rv">
+        <img src="assets/img/dome-e.webp" alt="Купольный коттедж среди зелени" loading="lazy">
+        <div class="stay-body">
+          <span class="tag">Купол 36 м²</span>
+          <h3>Панорамный купол Premium</h3>
+          <p>Простор 36 м²: спальня с видом, кухня, санузел, кондиционер, большая терраса и зона гриль.</p>
+        </div>
+      </article>
+      <article class="stay-card rv" style="transition-delay:.08s">
+        <img src="assets/img/dome-b.webp" alt="Романтический интерьер купола" loading="lazy">
+        <div class="stay-body">
+          <span class="tag">Романтика</span>
+          <h3>Купол для двоих</h3>
+          <p>Джакузи, лепестки роз и ужин под звёздами.</p>
+        </div>
+      </article>
+      <article class="stay-card rv">
+        <img src="assets/img/furako.webp" alt="Японская купель фурако с панорамой" loading="lazy">
+        <div class="stay-body">
+          <span class="tag">Фурако</span>
+          <h3>Японская купель</h3>
+          <p>Горячая баня-бочка на дровах под открытым небом.</p>
+        </div>
+      </article>
+      <article class="stay-card rv" style="transition-delay:.08s">
+        <img src="assets/img/jacuzzi-b.webp" alt="Джакузи с видом на горы" loading="lazy">
+        <div class="stay-body">
+          <span class="tag">Джакузи</span>
+          <h3>СПА под небом</h3>
+          <p>Тёплая вода и панорама долины на закате.</p>
+        </div>
+      </article>
+      <article class="stay-card rv" style="transition-delay:.16s">
+        <img src="assets/img/dome-c.webp" alt="Уютный интерьер купола 28 м²" loading="lazy">
+        <div class="stay-body">
+          <span class="tag">Купол 28 м²</span>
+          <h3>Уютный купол Comfort</h3>
+          <p>Всё необходимое для отдыха вдвоём или семьёй.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     05 · ЦЕНЫ И БРОНИРОВАНИЕ
+     ▸ Ниже 4 карточки тарифов. Плейсхолдер цены — «— GEL».
+       Замени тире на сумму: <span class="price">450 GEL …
+     ═══════════════════════════════════════════════════════════ -->
+<section class="section booking" id="booking">
+  <div class="wrap">
+    <div class="head rv">
+      <span class="eyebrow">Цены и бронирование</span>
+      <h2 class="display">Забронируйте <em>свой отдых</em></h2>
+      <p class="lead">Оставьте заявку — подтвердим свободные даты и рассчитаем итоговую стоимость под ваш формат.</p>
+    </div>
+
+    <div class="booking-grid">
+      <div>
+        <div class="tariffs">
+          <article class="tariff rv">
+            <h3>Купол 28 м²</h3>
+            <p class="meta">Comfort · до 2–3 гостей</p>
+            <p class="price">— GEL <small>/ ночь</small></p>
+            <ul>
+              <li>Душ, санузел, кухня, кондиционер</li>
+              <li>Терраса и зона гриль</li>
+              <li>Завтрак по запросу</li>
+            </ul>
+          </article>
+          <article class="tariff tariff--hit rv" style="transition-delay:.08s">
+            <span class="ribbon">Хит</span>
+            <h3>Купол 36 м²</h3>
+            <p class="meta">Premium · панорамный</p>
+            <p class="price">— GEL <small>/ ночь</small></p>
+            <ul>
+              <li>Всё из Comfort + больше простора</li>
+              <li>Панорамное окно на долину</li>
+              <li>Увеличенная терраса</li>
+            </ul>
+          </article>
+          <article class="tariff rv">
+            <h3>Романтик-пакет</h3>
+            <p class="meta">Джакузи + декор для двоих</p>
+            <p class="price">— GEL <small>/ за пакет</small></p>
+            <ul>
+              <li>Джакузи и лепестки роз</li>
+              <li>Костровая зона вечером</li>
+              <li>Сюрприз от отеля</li>
+            </ul>
+          </article>
+          <article class="tariff rv" style="transition-delay:.08s">
+            <h3>Мероприятия</h3>
+            <p class="meta">Свадьбы · корпоративы</p>
+            <p class="price price--ask">По запросу</p>
+            <ul>
+              <li>Площадка на природе</li>
+              <li>Кейтеринг и декор</li>
+              <li>Аренда всей территории</li>
+            </ul>
+          </article>
+        </div>
+        <p class="note rv">Стоимость зависит от сезона, дней недели и количества гостей. Финальную цену и наличие мест менеджер подтвердит после заявки.</p>
+      </div>
+
+      <div class="rv" style="transition-delay:.1s">
+        <form class="form-card" id="bookForm" novalidate>
+          <div id="formBody">
+            <h3>Заявка на бронирование</h3>
+            <p class="sub">Ответим в течение 15 минут в рабочее время.</p>
+
+            <div class="field">
+              <label for="fname">Ваше имя</label>
+              <input type="text" id="fname" name="name" placeholder="Как к вам обращаться" autocomplete="name">
+              <span class="err">Пожалуйста, укажите имя</span>
+            </div>
+            <div class="field">
+              <label for="fphone">Телефон или Telegram</label>
+              <input type="text" id="fphone" name="phone" placeholder="+995 ..." autocomplete="tel">
+              <span class="err">Укажите контакт для связи</span>
+            </div>
+            <div class="row-2">
+              <div class="field">
+                <label for="fin">Заезд</label>
+                <input type="date" id="fin" name="checkin">
+                <span class="err">Выберите дату</span>
+              </div>
+              <div class="field">
+                <label for="fout">Выезд</label>
+                <input type="date" id="fout" name="checkout">
+                <span class="err">Позже заезда</span>
+              </div>
+            </div>
+            <div class="row-2">
+              <div class="field">
+                <label for="fdome">Купол</label>
+                <select id="fdome" name="dome">
+                  <option value="">Выберите</option>
+                  <option>Купол 28 м² (Comfort)</option>
+                  <option>Купол 36 м² (Premium)</option>
+                  <option>Романтик-пакет</option>
+                  <option>Мероприятие</option>
+                </select>
+                <span class="err">Выберите вариант</span>
+              </div>
+              <div class="field">
+                <label for="fguests">Гостей</label>
+                <select id="fguests" name="guests">
+                  <option value="">—</option>
+                  <option>1</option><option>2</option><option>3</option><option>4</option><option>5+</option>
+                </select>
+                <span class="err">Укажите гостей</span>
+              </div>
+            </div>
+            <div class="field">
+              <label for="fmsg">Комментарий <span class="opt">(необязательно)</span></label>
+              <textarea id="fmsg" name="message" rows="2" placeholder="Особые пожелания, повод, вопросы"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn--primary btn--block">Отправить заявку</button>
+            <p class="consent">Нажимая кнопку, вы соглашаетесь на обработку данных для связи по заявке.</p>
+          </div>
+
+          <div class="success" id="formOk" role="status" aria-live="polite">
+            <span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>
+            <h3>Заявка принята</h3>
+            <p id="okText">Спасибо! Мы свяжемся с вами, чтобы подтвердить даты и рассчитать стоимость.</p>
+            <button type="button" class="btn btn--ghost btn--sm" id="okReset" style="margin-top:24px">Отправить ещё одну</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ 06 · ВПЕЧАТЛЕНИЯ ═══════ -->
+<section class="section" id="experiences">
+  <div class="wrap">
+    <div class="head rv">
+      <span class="eyebrow">Впечатления</span>
+      <h2 class="display">Чем заняться <em>вокруг</em></h2>
+      <p class="lead">Глэмпинг — только начало. Вокруг десятки маршрутов, туров и активностей.</p>
+    </div>
+    <div class="grid-4">
+      <article class="exp rv"><span class="num">01</span><span class="ic"><svg viewBox="0 0 38 38" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 27h26M10 27V14l9-6 9 6v13M16 27v-6h6v6"/></svg></span><h3>Мероприятия</h3><p>Свадьбы, корпоративы и дни рождения с комфортом на природе.</p></article>
+      <article class="exp rv" style="transition-delay:.06s"><span class="num">02</span><span class="ic"><svg viewBox="0 0 38 38" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 6v11a4 4 0 008 0V6M17 6v26M27 6c-2 3-2 8 0 11 2-3 2-8 0-11zM27 17v15"/></svg></span><h3>Ресторан</h3><p>Грузинская и европейская кухня. Вечера для двоих в уютной атмосфере.</p></article>
+      <article class="exp rv" style="transition-delay:.12s"><span class="num">03</span><span class="ic"><svg viewBox="0 0 38 38" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 6h8v7a4 4 0 01-8 0zM18 20v9M13 32h10"/><path d="M22 9h3a3 3 0 010 6h-3"/></svg></span><h3>Винодельня</h3><p>Туры на Шато Мухрани, дегустация вин и прогулка по замку.</p></article>
+      <article class="exp rv" style="transition-delay:.18s"><span class="num">04</span><span class="ic"><svg viewBox="0 0 38 38" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="26" r="5.5"/><circle cx="28" cy="26" r="5.5"/><path d="M10 26l6-11h7l5 11M16 15l3-5h5"/></svg></span><h3>Драйв</h3><p>Прогулки на велосипедах и лошадях по окрестностям.</p></article>
+      <article class="exp rv"><span class="num">05</span><span class="ic"><svg viewBox="0 0 38 38" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 29l9-16 6 9 4-7 9 14z"/><circle cx="26" cy="11" r="2.6"/></svg></span><h3>Треккинг</h3><p>Походы по сопкам с видами на долину, старинные храмы и церкви.</p></article>
+      <article class="exp rv" style="transition-delay:.06s"><span class="num">06</span><span class="ic"><svg viewBox="0 0 38 38" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21h24l7-3.5-7-3.5H17l-5 3.5M12 17.5l-3.5-7M19 21v7"/></svg></span><h3>Экстрим</h3><p>Туры на частных самолётах в горы Сванетии из Натахтари.</p></article>
+      <article class="exp rv" style="transition-delay:.12s"><span class="num">07</span><span class="ic"><svg viewBox="0 0 38 38" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 26c3.5 2.6 5.2 2.6 8.7 0s5.2-2.6 8.7 0 5.2 2.6 8.7 0M7 21l5-8.7 5 5.2 5-7 5 10.5"/></svg></span><h3>Рафтинг</h3><p>Сплав по реке Арагви — 15 км маршрута с инструктором.</p></article>
+      <article class="exp rv" style="transition-delay:.18s"><span class="num">08</span><span class="ic"><svg viewBox="0 0 38 38" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="19" cy="19" r="14"/><path d="M5 19h28M19 5c4.4 3.5 4.4 24.5 0 28M19 5c-4.4 3.5-4.4 24.5 0 28"/></svg></span><h3>Туры</h3><p>Гудаури, Казбеги и Кахетия. Дополнительные маршруты по запросу.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ 07 · ГАЛЕРЕЯ ═══════ -->
+<section class="section section--tight" id="gallery">
+  <div class="wrap">
+    <div class="head rv">
+      <span class="eyebrow">Галерея</span>
+      <h2 class="display">Атмосфера <em>Jewelberry</em></h2>
+    </div>
+    <div class="gallery" id="galleryGrid">
+      <button class="shot-btn w2 h2 rv" aria-label="Открыть фото"><img src="assets/img/aerial.webp" alt="Глэмпинг с высоты на закате" loading="lazy"><span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
+      <button class="shot-btn rv" style="transition-delay:.06s" aria-label="Открыть фото"><img src="assets/img/jacuzzi-a.webp" alt="Джакузи с лепестками роз" loading="lazy"><span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
+      <button class="shot-btn rv" style="transition-delay:.12s" aria-label="Открыть фото"><img src="assets/img/firepit.webp" alt="Костровая зона с вином" loading="lazy"><span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
+      <button class="shot-btn rv" aria-label="Открыть фото"><img src="assets/img/lounge.webp" alt="Лаунж-беседка с балдахином" loading="lazy"><span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
+      <button class="shot-btn w2 rv" style="transition-delay:.06s" aria-label="Открыть фото"><img src="assets/img/pool.webp" alt="Открытый бассейн с шезлонгами" loading="lazy"><span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
+      <button class="shot-btn rv" style="transition-delay:.12s" aria-label="Открыть фото"><img src="assets/img/dome-a.webp" alt="Купол с джакузи и флажками" loading="lazy"><span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
+      <button class="shot-btn rv" aria-label="Открыть фото"><img src="assets/img/night.webp" alt="Купола ночью с подсветкой" loading="lazy"><span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
+      <button class="shot-btn rv" style="transition-delay:.06s" aria-label="Открыть фото"><img src="assets/img/restaurant.webp" alt="Ресторан глэмпинга" loading="lazy"><span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
+      <button class="shot-btn rv" style="transition-delay:.12s" aria-label="Открыть фото"><img src="assets/img/events.webp" alt="Мероприятие на природе" loading="lazy"><span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
+      <button class="shot-btn w2 rv" aria-label="Открыть фото"><img src="assets/img/nature.webp" alt="Купола среди ромашкового поля" loading="lazy"><span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
+      <button class="shot-btn rv" style="transition-delay:.06s" aria-label="Открыть фото"><img src="assets/img/terrace.webp" alt="Терраса купола с шезлонгами" loading="lazy"><span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
+      <button class="shot-btn rv" style="transition-delay:.12s" aria-label="Открыть фото"><img src="assets/img/dome-d.webp" alt="Интерьер купола с панорамным видом" loading="lazy"><span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ 08 · КАК ЗАБРОНИРОВАТЬ ═══════ -->
+<section class="section" id="how" style="background:var(--sand)">
+  <div class="wrap">
+    <div class="head head--center rv">
+      <span class="eyebrow">Как забронировать</span>
+      <h2 class="display">Четыре шага <em>к отдыху</em></h2>
+    </div>
+    <div class="steps">
+      <div class="step rv"><span class="idx">1</span><span class="circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg></span><h3>Оставьте заявку</h3><p>Заполните форму с датами и форматом отдыха.</p></div>
+      <div class="step rv" style="transition-delay:.08s"><span class="idx">2</span><span class="circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v12H7l-3 3z"/><path d="M8 9h8M8 12h5"/></svg></span><h3>Подтверждение</h3><p>Менеджер уточнит наличие мест и цену.</p></div>
+      <div class="step rv" style="transition-delay:.16s"><span class="idx">3</span><span class="circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3" y="6" width="18" height="14" rx="2"/><path d="M3 10h18M7 3v4M17 3v4"/></svg></span><h3>Бронь</h3><p>Фиксируем даты и вносим предоплату.</p></div>
+      <div class="step rv" style="transition-delay:.24s"><span class="idx">4</span><span class="circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21L12 4l9 17H3z"/><path d="M9 21v-4h6v4"/></svg></span><h3>Отдыхаете</h3><p>Приезжаете — обо всём уже позаботились.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ 09 · ОТЗЫВЫ ═══════ -->
+<section class="section" id="reviews">
+  <div class="wrap">
+    <div class="head rv">
+      <span class="eyebrow">Отзывы гостей</span>
+      <h2 class="display">Что говорят <em>гости</em></h2>
+    </div>
+    <div class="reviews">
+      <article class="review rv">
+        <div class="stars" aria-label="Оценка 5 из 5"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .8-5 4.8 1.3 7L12 18l-6.3 3.9L7 14 2 9.3l7-.8z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .8-5 4.8 1.3 7L12 18l-6.3 3.9L7 14 2 9.3l7-.8z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .8-5 4.8 1.3 7L12 18l-6.3 3.9L7 14 2 9.3l7-.8z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .8-5 4.8 1.3 7L12 18l-6.3 3.9L7 14 2 9.3l7-.8z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .8-5 4.8 1.3 7L12 18l-6.3 3.9L7 14 2 9.3l7-.8z"/></svg></div>
+        <blockquote>«Всё-всё-всё продумано до мелочей — и постельное бельё с мягкими одеялами, и осветительные фонарики с праздничными гирляндами.»</blockquote>
+        <div class="author"><span class="av">ИЗ</span><div><b>Ирина Зубарева</b><span>гостья глэмпинга</span></div></div>
+      </article>
+      <article class="review rv" style="transition-delay:.08s">
+        <div class="stars" aria-label="Оценка 5 из 5"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .8-5 4.8 1.3 7L12 18l-6.3 3.9L7 14 2 9.3l7-.8z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .8-5 4.8 1.3 7L12 18l-6.3 3.9L7 14 2 9.3l7-.8z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .8-5 4.8 1.3 7L12 18l-6.3 3.9L7 14 2 9.3l7-.8z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .8-5 4.8 1.3 7L12 18l-6.3 3.9L7 14 2 9.3l7-.8z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .8-5 4.8 1.3 7L12 18l-6.3 3.9L7 14 2 9.3l7-.8z"/></svg></div>
+        <blockquote>«Я всегда думал, что поход — это куча снаряжения и долгие сборы. Но здесь получаешь совсем другое. Совсем.»</blockquote>
+        <div class="author"><span class="av">АФ</span><div><b>Александр Фесенко</b><span>гость глэмпинга</span></div></div>
+      </article>
+      <article class="review rv">
+        <div class="stars" aria-label="Оценка 5 из 5"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .8-5 4.8 1.3 7L12 18l-6.3 3.9L7 14 2 9.3l7-.8z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .8-5 4.8 1.3 7L12 18l-6.3 3.9L7 14 2 9.3l7-.8z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .8-5 4.8 1.3 7L12 18l-6.3 3.9L7 14 2 9.3l7-.8z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .8-5 4.8 1.3 7L12 18l-6.3 3.9L7 14 2 9.3l7-.8z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .8-5 4.8 1.3 7L12 18l-6.3 3.9L7 14 2 9.3l7-.8z"/></svg></div>
+        <blockquote>«Самое уютное место из всех, где я была. Особенно порадовали флажочки — мелочь, а так приятно.»</blockquote>
+        <div class="author"><span class="av">А</span><div><b>Алиса</b><span>гостья глэмпинга</span></div></div>
+      </article>
+      <article class="review rv" style="transition-delay:.08s">
+        <div class="stars" aria-label="Оценка 5 из 5"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .8-5 4.8 1.3 7L12 18l-6.3 3.9L7 14 2 9.3l7-.8z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .8-5 4.8 1.3 7L12 18l-6.3 3.9L7 14 2 9.3l7-.8z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .8-5 4.8 1.3 7L12 18l-6.3 3.9L7 14 2 9.3l7-.8z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .8-5 4.8 1.3 7L12 18l-6.3 3.9L7 14 2 9.3l7-.8z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.5 7 .8-5 4.8 1.3 7L12 18l-6.3 3.9L7 14 2 9.3l7-.8z"/></svg></div>
+        <blockquote>«Сидишь такой, ножки свесив, и смотришь вдаль — а там такая красота, и всё лишнее из головы как смыло.»</blockquote>
+        <div class="author"><span class="av">АИ</span><div><b>Алёна Игоревна</b><span>гостья глэмпинга</span></div></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ 10 · FAQ ═══════ -->
+<section class="section" id="faq" style="background:var(--sand)">
+  <div class="wrap">
+    <div class="head head--center rv">
+      <span class="eyebrow">Частые вопросы</span>
+      <h2 class="display">Вопросы <em>и ответы</em></h2>
+    </div>
+    <div class="faq">
+      <div class="q-item rv">
+        <button class="q-btn" aria-expanded="false">Как далеко от Тбилиси и как добраться?<span class="pm"></span></button>
+        <div class="q-body"><p>Глэмпинг расположен в Шуагули, примерно в 30 минутах езды от центра Тбилиси. Точный маршрут и координаты пришлём после подтверждения брони. На территории есть бесплатная охраняемая парковка.</p></div>
+      </div>
+      <div class="q-item rv">
+        <button class="q-btn" aria-expanded="false">Что входит в купол?<span class="pm"></span></button>
+        <div class="q-body"><p>Каждый купол (28 м² или 36 м²) оборудован туалетом, душем, кухней, кондиционером, собственной террасой, газоном и зоной гриль. Постельное бельё, полотенца и Wi-Fi включены.</p></div>
+      </div>
+      <div class="q-item rv">
+        <button class="q-btn" aria-expanded="false">Сколько стоит проживание?<span class="pm"></span></button>
+        <div class="q-body"><p>Стоимость зависит от типа купола, сезона, дней недели и числа гостей. Оставьте заявку — менеджер подтвердит свободные даты и назовёт актуальную цену под ваш формат отдыха.</p></div>
+      </div>
+      <div class="q-item rv">
+        <button class="q-btn" aria-expanded="false">Можно ли провести свадьбу или корпоратив?<span class="pm"></span></button>
+        <div class="q-body"><p>Да. Мы организуем мероприятия на природе — свадьбы, корпоративы и дни рождения, включая аренду всей территории, кейтеринг и декор. Условия обсуждаются индивидуально по запросу.</p></div>
+      </div>
+      <div class="q-item rv">
+        <button class="q-btn" aria-expanded="false">Что есть на территории и вокруг?<span class="pm"></span></button>
+        <div class="q-body"><p>Открытый бассейн с баром, ресторан, беседки, открытый кинотеатр, джакузи и фурако, костровые зоны. Вокруг — велодорожка почти на 2 км, пруд, сады, а рядом винодельня Шато Мухрани, рафтинг по Арагви и туры в Казбеги и Кахетию.</p></div>
+      </div>
+      <div class="q-item rv">
+        <button class="q-btn" aria-expanded="false">Как оплатить и подтвердить бронь?<span class="pm"></span></button>
+        <div class="q-body"><p>После заявки менеджер согласует даты и внесение предоплаты для фиксации брони. Способы оплаты уточним при подтверждении.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ 11 · КОНТАКТЫ + ФИНАЛЬНЫЙ CTA ═══════ -->
+<section class="section contact" id="contact">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div class="rv">
+        <span class="eyebrow">Бронирование и контакты</span>
+        <h2 class="display">Готовы к отдыху <em>мечты?</em></h2>
+        <p class="lead">Напишите удобным способом — подберём даты и ответим на все вопросы.</p>
+        <div class="c-list">
+          <a class="c-row" href="tel:+995511142741">
+            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h4l2 5-2.5 1.5a11 11 0 006 6L15 14l5 2v4a2 2 0 01-2 2A16 16 0 012 6a2 2 0 012-2z"/></svg></span>
+            <span><small>Телефон</small><b>+995 511 14 27 41</b></span>
+          </a>
+          <a class="c-row" href="https://telegram.im/@JewelberryShuagulibot" target="_blank" rel="noopener">
+            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 4L3 11l6 2 2 6 3-4 4 3z"/></svg></span>
+            <span><small>Telegram</small><b>@JewelberryShuagulibot</b></span>
+          </a>
+          <a class="c-row" href="https://jb.camp/georgia" target="_blank" rel="noopener">
+            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.2 7-11a7 7 0 10-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg></span>
+            <span><small>Локация</small><b>Shuaguli, Тбилиси, Грузия</b></span>
+          </a>
+        </div>
+        <div class="socials">
+          <a href="https://www.instagram.com/jb.glamping.ge" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg></a>
+          <a href="https://wa.me/995511142741" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3 21l1.6-5A9 9 0 1112 21a9 9 0 01-4.4-1.1z"/><path d="M8.5 9.5c0 3 2 5 5 5.5l1.2-1.2-2-1-1 .7c-1-.5-1.7-1.2-2.2-2.2l.7-1-1-2z" fill="currentColor" stroke="none"/></svg></a>
+          <a href="https://telegram.im/@JewelberryShuagulibot" target="_blank" rel="noopener" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M21 4L3 11l6 2 2 6 3-4 4 3z"/></svg></a>
+          <a href="https://www.facebook.com/jb.glamping.ge" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M15 3h-2a4 4 0 00-4 4v3H6v4h3v7h4v-7h3l1-4h-4V7a1 1 0 011-1h2z"/></svg></a>
+          <a href="https://www.messenger.com/t/jb.glamping.ge" target="_blank" rel="noopener" aria-label="Messenger"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3C6.5 3 2 7 2 12c0 2.7 1.3 5 3.4 6.6V22l3.1-1.7c1.1.3 2.3.5 3.5.5 5.5 0 10-4 10-9s-4.5-9-10-9z"/><path d="M6.5 14.5l3-3.2 2.2 2 3-2.2-3 3.2-2.2-2z" fill="currentColor" stroke="none"/></svg></a>
+          <a href="https://vk.com/jewelberry_georgia" target="_blank" rel="noopener" aria-label="VKontakte"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 8c.5 5 3.5 8.5 8 8.5h1V13c1.5.2 2.7 1.4 3.2 3.5H19c-.5-2-1.7-3.3-2.7-3.8 1-.6 2-1.9 2.4-3.7h-2c-.4 1.5-1.3 2.6-2.7 2.9V8h-2v4.2C10.5 12 9.3 10.4 9 8H4z" fill="currentColor" stroke="none"/></svg></a>
+        </div>
+      </div>
+      <div class="contact-media rv" style="transition-delay:.1s">
+        <img src="assets/img/dome-a.webp" alt="Купол Jewelberry с джакузи" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ═══════ FOOTER ═══════ -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="f-top">
+      <div class="f-brand">
+        <a href="#top" aria-label="Jewelberry Georgia"><img src="assets/img/logo-light.svg" alt="Jewelberry — Glamping Hotel Georgia" width="206" height="36"></a>
+        <p>Глэмпинг-отель и площадка для мероприятий в 30 минутах от Тбилиси. Купола, джакузи, фурако и магический лес.</p>
+      </div>
+      <div class="f-col">
+        <h4>Навигация</h4>
+        <a href="#stay">Размещение</a>
+        <a href="#booking">Цены</a>
+        <a href="#experiences">Впечатления</a>
+        <a href="#gallery">Галерея</a>
+        <a href="#faq">Вопросы</a>
+      </div>
+      <div class="f-col">
+        <h4>Контакты</h4>
+        <a href="tel:+995511142741">+995 511 14 27 41</a>
+        <a href="https://telegram.im/@JewelberryShuagulibot" target="_blank" rel="noopener">Telegram-бот</a>
+        <a href="https://wa.me/995511142741" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="https://jb.camp/georgia" target="_blank" rel="noopener">jb.camp/georgia</a>
+      </div>
+      <div class="f-col">
+        <h4>Соцсети</h4>
+        <a href="https://www.instagram.com/jb.glamping.ge" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.facebook.com/jb.glamping.ge" target="_blank" rel="noopener">Facebook</a>
+        <a href="https://vk.com/jewelberry_georgia" target="_blank" rel="noopener">VKontakte</a>
+      </div>
+    </div>
+    <div class="f-bottom">
+      <span>© 2026 Jewelberry Georgia. Все права защищены.</span>
+      <p>Демо-страница бронирования. Цены уточняются у менеджера при подтверждении заявки.</p>
+    </div>
+  </div>
+</footer>
+
+<div class="dock" id="dock"><a href="#booking" class="btn btn--primary btn--block">Забронировать отдых</a></div>
+
+<!-- ═══════ ЛАЙТБОКС ═══════ -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Просмотр фото">
+  <button class="lb-btn lb-close" id="lbClose" aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+  <button class="lb-btn lb-prev" id="lbPrev" aria-label="Предыдущее"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+  <img src="" alt="" id="lbImg">
+  <button class="lb-btn lb-next" id="lbNext" aria-label="Следующее"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+  <span class="lb-count" id="lbCount"></span>
+</div>
+
+<script>
+'use strict';
+
+/* ── Липкая шапка + мобильный док ───────────────────────────── */
+const header = document.getElementById('header');
+const dock = document.getElementById('dock');
+const onScroll = () => {
+  const y = window.scrollY;
+  header.classList.toggle('is-stuck', y > 24);
+  dock.classList.toggle('is-on', y > 520);
+};
+onScroll();
+addEventListener('scroll', onScroll, {passive:true});
+
+/* ── Мобильное меню ─────────────────────────────────────────── */
+const burger = document.getElementById('burger');
+const navLinks = document.getElementById('navLinks');
+const closeNav = () => { navLinks.classList.remove('is-open'); burger.setAttribute('aria-expanded','false'); };
+burger.addEventListener('click', () => {
+  const open = navLinks.classList.toggle('is-open');
+  burger.setAttribute('aria-expanded', String(open));
+});
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', closeNav));
+addEventListener('keydown', e => { if (e.key === 'Escape') closeNav(); });
+
+/* ── Появление при скролле ──────────────────────────────────── */
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+  });
+}, {threshold:0.1, rootMargin:'0px 0px -48px 0px'});
+document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+/* ── FAQ ────────────────────────────────────────────────────── */
+document.querySelectorAll('.q-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.parentElement;
+    const body = btn.nextElementSibling;
+    const isOpen = item.classList.contains('is-open');
+    document.querySelectorAll('.q-item.is-open').forEach(open => {
+      open.classList.remove('is-open');
+      open.querySelector('.q-body').style.maxHeight = null;
+      open.querySelector('.q-btn').setAttribute('aria-expanded','false');
+    });
+    if (!isOpen) {
+      item.classList.add('is-open');
+      body.style.maxHeight = body.scrollHeight + 'px';
+      btn.setAttribute('aria-expanded','true');
+    }
+  });
+});
+
+/* ── Форма бронирования ──────────────────────────────────────
+   Демо-режим: заявка никуда не отправляется, показывается
+   подтверждение. Чтобы слать в Telegram/на почту — заменить
+   тело обработчика ниже.                                      */
+const form = document.getElementById('bookForm');
+const formBody = document.getElementById('formBody');
+const formOk = document.getElementById('formOk');
+const okText = document.getElementById('okText');
+const REQUIRED = ['name','phone','checkin','checkout','dome','guests'];
+
+/* Заезд не раньше сегодняшнего дня */
+const today = new Date().toISOString().slice(0,10);
+form.elements['checkin'].min = today;
+form.elements['checkout'].min = today;
+form.elements['checkin'].addEventListener('change', e => {
+  form.elements['checkout'].min = e.target.value || today;
+});
+
+const setInvalid = (input, bad) => input.closest('.field').classList.toggle('is-invalid', bad);
+
+/* Снимаем подсветку, как только поле начали исправлять */
+REQUIRED.forEach(n => {
+  const el = form.elements[n];
+  el.addEventListener('input', () => setInvalid(el, false));
+  el.addEventListener('change', () => setInvalid(el, false));
+});
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  let ok = true;
+  REQUIRED.forEach(n => {
+    const el = form.elements[n];
+    const empty = !String(el.value).trim();
+    setInvalid(el, empty);
+    if (empty) ok = false;
+  });
+  const ci = form.elements['checkin'].value;
+  const co = form.elements['checkout'].value;
+  if (ci && co && co <= ci) { setInvalid(form.elements['checkout'], true); ok = false; }
+
+  if (!ok) {
+    const first = form.querySelector('.is-invalid input, .is-invalid select');
+    if (first) { first.focus({preventScroll:true}); first.scrollIntoView({behavior:'smooth', block:'center'}); }
+    return;
+  }
+
+  const name = form.elements['name'].value.trim();
+  const dome = form.elements['dome'].value;
+  okText.textContent = 'Спасибо, ' + name + '! Заявка на «' + dome + '» принята. Мы свяжемся с вами, чтобы подтвердить даты и рассчитать стоимость.';
+  formBody.style.display = 'none';
+  formOk.classList.add('is-on');
+  formOk.scrollIntoView({behavior:'smooth', block:'center'});
+});
+
+document.getElementById('okReset').addEventListener('click', () => {
+  form.reset();
+  formOk.classList.remove('is-on');
+  formBody.style.display = '';
+  form.querySelectorAll('.is-invalid').forEach(f => f.classList.remove('is-invalid'));
+  form.elements['checkout'].min = today;
+});
+
+/* ── Лайтбокс ───────────────────────────────────────────────── */
+const lb = document.getElementById('lightbox');
+const lbImg = document.getElementById('lbImg');
+const lbCount = document.getElementById('lbCount');
+const shots = Array.from(document.querySelectorAll('#galleryGrid .shot-btn'));
+const pics = shots.map(b => b.querySelector('img'));
+let idx = 0, lastFocus = null;
+
+const render = () => {
+  lbImg.src = pics[idx].src;
+  lbImg.alt = pics[idx].alt;
+  lbCount.textContent = (idx + 1) + ' / ' + pics.length;
+};
+const openLb = (i) => {
+  idx = i; lastFocus = document.activeElement;
+  render();
+  lb.classList.add('is-on');
+  document.body.style.overflow = 'hidden';
+  document.getElementById('lbClose').focus();
+};
+const closeLb = () => {
+  lb.classList.remove('is-on');
+  document.body.style.overflow = '';
+  if (lastFocus) lastFocus.focus();
+};
+const step = (d) => { idx = (idx + d + pics.length) % pics.length; render(); };
+
+shots.forEach((btn, i) => btn.addEventListener('click', () => openLb(i)));
+document.getElementById('lbClose').addEventListener('click', closeLb);
+document.getElementById('lbPrev').addEventListener('click', () => step(-1));
+document.getElementById('lbNext').addEventListener('click', () => step(1));
+lb.addEventListener('click', (e) => { if (e.target === lb) closeLb(); });
+addEventListener('keydown', (e) => {
+  if (!lb.classList.contains('is-on')) return;
+  if (e.key === 'Escape') closeLb();
+  if (e.key === 'ArrowRight') step(1);
+  if (e.key === 'ArrowLeft') step(-1);
+});
+
+/* Свайпы в лайтбоксе */
+let touchX = null;
+lb.addEventListener('touchstart', e => { touchX = e.changedTouches[0].clientX; }, {passive:true});
+lb.addEventListener('touchend', e => {
+  if (touchX === null) return;
+  const dx = e.changedTouches[0].clientX - touchX;
+  if (Math.abs(dx) > 50) step(dx < 0 ? 1 : -1);
+  touchX = null;
+}, {passive:true});
+</script>
+</body>
+</html>
