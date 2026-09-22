@@ -670,7 +670,7 @@ h3{font-family:var(--sans);font-size:20px;font-weight:600;line-height:1.3;letter
 body::after{
   content:"";position:fixed;inset:0;z-index:95;pointer-events:none;
   background-image:var(--grain);background-size:180px 180px;
-  opacity:.07;mix-blend-mode:soft-light;
+  opacity:.05;
 }
 
 .scene{position:relative;height:calc(var(--len,2.4) * 100vh);background:var(--dark)}
@@ -679,11 +679,10 @@ body::after{
   position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;
   display:flex;align-items:flex-end;
 }
-.stage-media{position:absolute;inset:0;will-change:transform;transform-origin:50% 50%}
-.stage-media img{
-  width:100%;height:100%;object-fit:cover;display:block;
-  will-change:transform;
-}
+.stage{contain:paint}
+.stage-media{position:absolute;inset:0;transform-origin:50% 50%}
+.scene.is-live .stage-media{will-change:transform}
+.stage-media img{width:100%;height:100%;object-fit:cover;display:block}
 /* Виньетка + подложка под текст. --shade растёт к концу сцены (JS) */
 .stage-veil{
   position:absolute;inset:0;pointer-events:none;
@@ -692,10 +691,7 @@ body::after{
     linear-gradient(180deg,rgba(23,26,18,.30) 0%,rgba(23,26,18,0) 30%,rgba(23,26,18,0) 45%,rgba(23,26,18,.80) 100%),
     radial-gradient(120% 80% at 50% 50%,rgba(23,26,18,0) 40%,rgba(23,26,18,.35) 100%);
 }
-.stage-veil::after{
-  content:"";position:absolute;inset:0;background:var(--dark);
-  opacity:var(--shade,0);
-}
+.stage-shade{position:absolute;inset:0;pointer-events:none;background:var(--dark);opacity:0}
 .scene--dusk .stage-veil{
   background:
     linear-gradient(90deg,rgba(23,26,18,.58) 0%,rgba(23,26,18,.24) 38%,rgba(23,26,18,0) 62%),
@@ -754,8 +750,7 @@ body::after{
 .chips li{
   font-size:13px;font-weight:600;color:rgba(247,244,237,.88);
   padding:7px 12px;border-radius:var(--r-pill);
-  border:1px solid rgba(247,244,237,.2);background:rgba(23,26,18,.35);
-  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  border:1px solid rgba(247,244,237,.2);background:rgba(23,26,18,.55);
 }
 
 .rates{list-style:none;margin-top:var(--s6);max-width:560px;border-top:1px solid rgba(247,244,237,.18)}
@@ -780,8 +775,8 @@ body::after{
   writing-mode:vertical-rl;transition:opacity .5s var(--ease-ui);
 }
 .scroll-cue span{width:1px;height:44px;background:rgba(247,244,237,.35);position:relative;overflow:hidden}
-.scroll-cue span::after{content:"";position:absolute;left:0;top:-100%;width:100%;height:100%;background:var(--brand);animation:cue 1.8s linear infinite}
-@keyframes cue{to{top:100%}}
+.scroll-cue span::after{content:"";position:absolute;left:0;top:0;width:100%;height:100%;background:var(--brand);animation:cue 1.8s linear infinite}
+@keyframes cue{from{transform:translateY(-100%)}to{transform:translateY(100%)}}
 .is-hold .scroll-cue{opacity:0}
 
 /* Индикатор сцен */
@@ -808,7 +803,10 @@ body.in-scenes .dock{opacity:0;transform:translateY(90px);pointer-events:none}
 .header--dark .nav-links a:hover{color:var(--on-dark)}
 .header--dark .burger{border-color:rgba(247,244,237,.3)}
 .header--dark .burger span{background:var(--on-dark)}
-.header--dark.is-stuck{background:rgba(23,26,18,.62);border-bottom-color:rgba(247,244,237,.1)}
+.header--dark.is-stuck{
+  background:rgba(23,26,18,.78);border-bottom-color:rgba(247,244,237,.1);
+  backdrop-filter:none;-webkit-backdrop-filter:none;
+}
 
 /* Секция брони после сцен — мягкий стык с тёмного на песочный */
 .booking{position:relative;z-index:1}
@@ -893,9 +891,10 @@ body.in-scenes .dock{opacity:0;transform:translateY(90px);pointer-events:none}
 <section class="scene" data-scene="1" data-cam="1.22,1,0,-4" style="--len:2.6">
   <div class="stage">
     <div class="stage-media">
-      <img src="assets/img/aerial.webp" alt="Глэмпинг Jewelberry с высоты на закате" fetchpriority="high" decoding="async" width="1280" height="960" style="object-position:50% 60%">
+      <img src="assets/img/aerial.webp" srcset="assets/img/aerial-640.webp 640w, assets/img/aerial-960.webp 960w, assets/img/aerial.webp 1280w" sizes="100vw" alt="Глэмпинг Jewelberry с высоты на закате" fetchpriority="high" decoding="async" width="1280" height="960" style="object-position:50% 60%">
     </div>
     <div class="stage-veil"></div>
+    <div class="stage-shade"></div>
     <div class="stage-copy wrap">
       <div class="copy copy--hero">
         <span class="eyebrow eyebrow--dark hl">Шуагули · 30 минут от Тбилиси</span>
@@ -917,23 +916,24 @@ body.in-scenes .dock{opacity:0;transform:translateY(90px);pointer-events:none}
   <span class="anchor" id="stay"></span>
   <div class="stage">
     <div class="stage-media">
-      <img src="assets/img/dome-e.webp" alt="Купольный коттедж среди зелени" loading="lazy" decoding="async" width="1280" height="961" style="object-position:55% 50%">
+      <img src="assets/img/dome-e.webp" srcset="assets/img/dome-e-640.webp 640w, assets/img/dome-e-960.webp 960w, assets/img/dome-e.webp 1280w" sizes="100vw" alt="Купольный коттедж среди зелени" loading="lazy" decoding="async" width="1280" height="961" style="object-position:55% 50%">
     </div>
     <div class="stage-veil"></div>
+    <div class="stage-shade"></div>
     <div class="stage-copy wrap">
       <div class="copy">
         <span class="eyebrow eyebrow--dark hl">Размещение</span>
         <h2 class="display hl" style="--d:.08s">Купольные коттеджи <em>с видом на долину</em></h2>
         <div class="pair hl" style="--d:.18s">
           <article class="pcard">
-            <img src="assets/img/dome-c.webp" alt="Интерьер купола 28 м²" loading="lazy" decoding="async" width="939" height="1080">
+            <img src="assets/img/dome-c.webp" srcset="assets/img/dome-c-640.webp 640w, assets/img/dome-c.webp 939w" sizes="(max-width:900px) 46vw, 320px" alt="Интерьер купола 28 м²" loading="lazy" decoding="async" width="939" height="1080">
             <div class="pcard-body">
               <span class="tag">Купол 28 м² · Comfort</span>
               <p>Спальня, кухня, санузел, кондиционер, своя терраса и зона гриль. Для двоих или семьи.</p>
             </div>
           </article>
           <article class="pcard">
-            <img src="assets/img/dome-d.webp" alt="Интерьер купола 36 м² с панорамным окном" loading="lazy" decoding="async" width="864" height="1080">
+            <img src="assets/img/dome-d.webp" srcset="assets/img/dome-d-640.webp 640w, assets/img/dome-d.webp 864w" sizes="(max-width:900px) 46vw, 320px" alt="Интерьер купола 36 м² с панорамным окном" loading="lazy" decoding="async" width="864" height="1080">
             <div class="pcard-body">
               <span class="tag">Купол 36 м² · Premium</span>
               <p>Всё из Comfort, панорамное окно на долину и увеличенная терраса.</p>
@@ -951,9 +951,10 @@ body.in-scenes .dock{opacity:0;transform:translateY(90px);pointer-events:none}
   <span class="anchor" id="evening"></span>
   <div class="stage">
     <div class="stage-media">
-      <img src="assets/img/furako.webp" alt="Японская купель фурако с панорамой долины" loading="lazy" decoding="async" width="1400" height="965" style="object-position:50% 45%">
+      <img src="assets/img/furako.webp" srcset="assets/img/furako-640.webp 640w, assets/img/furako-960.webp 960w, assets/img/furako.webp 1400w" sizes="100vw" alt="Японская купель фурако с панорамой долины" loading="lazy" decoding="async" width="1400" height="965" style="object-position:50% 45%">
     </div>
     <div class="stage-veil"></div>
+    <div class="stage-shade"></div>
     <div class="stage-copy wrap">
       <div class="copy">
         <span class="eyebrow eyebrow--dark hl">Вечер</span>
@@ -961,14 +962,14 @@ body.in-scenes .dock{opacity:0;transform:translateY(90px);pointer-events:none}
         <p class="lead hl" style="--d:.14s">Японская купель на дровах, тёплая вода на закате и огонь, когда стемнеет.</p>
         <div class="pair hl" style="--d:.2s">
           <article class="pcard">
-            <img src="assets/img/jacuzzi-a.webp" alt="Джакузи с лепестками роз" loading="lazy" decoding="async" width="1280" height="961">
+            <img src="assets/img/jacuzzi-a.webp" srcset="assets/img/jacuzzi-a-640.webp 640w, assets/img/jacuzzi-a-960.webp 960w, assets/img/jacuzzi-a.webp 1280w" sizes="(max-width:900px) 46vw, 320px" alt="Джакузи с лепестками роз" loading="lazy" decoding="async" width="1280" height="961">
             <div class="pcard-body">
               <span class="tag">Романтик-пакет</span>
               <p>Джакузи, лепестки роз и ужин под звёздами.</p>
             </div>
           </article>
           <article class="pcard">
-            <img src="assets/img/events.webp" alt="Мероприятие на природе" loading="lazy" decoding="async" width="1280" height="959">
+            <img src="assets/img/events.webp" srcset="assets/img/events-640.webp 640w, assets/img/events-960.webp 960w, assets/img/events.webp 1280w" sizes="(max-width:900px) 46vw, 320px" alt="Мероприятие на природе" loading="lazy" decoding="async" width="1280" height="959">
             <div class="pcard-body">
               <span class="tag">Мероприятия</span>
               <p>Свадьбы и корпоративы, аренда всей территории.</p>
@@ -988,9 +989,10 @@ body.in-scenes .dock{opacity:0;transform:translateY(90px);pointer-events:none}
   <span class="anchor" id="prices"></span>
   <div class="stage">
     <div class="stage-media">
-      <img src="assets/img/night.webp" alt="Купола Jewelberry ночью с подсветкой" loading="lazy" decoding="async" width="1280" height="960" style="object-position:50% 55%">
+      <img src="assets/img/night.webp" srcset="assets/img/night-640.webp 640w, assets/img/night-960.webp 960w, assets/img/night.webp 1280w" sizes="100vw" alt="Купола Jewelberry ночью с подсветкой" loading="lazy" decoding="async" width="1280" height="960" style="object-position:50% 55%">
     </div>
     <div class="stage-veil"></div>
+    <div class="stage-shade"></div>
     <div class="stage-copy wrap">
       <div class="copy">
         <span class="eyebrow eyebrow--dark hl">Цены и бронирование</span>
@@ -1179,18 +1181,18 @@ body.in-scenes .dock{opacity:0;transform:translateY(90px);pointer-events:none}
       <h2 class="display">Атмосфера <em>Jewelberry</em></h2>
     </div>
     <div class="gallery" id="galleryGrid">
-      <button class="shot-btn w2 h2 rv" aria-label="Открыть фото"><img src="assets/img/aerial.webp" alt="Глэмпинг с высоты на закате" loading="lazy"><span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
-      <button class="shot-btn rv" style="transition-delay:.06s" aria-label="Открыть фото"><img src="assets/img/jacuzzi-a.webp" alt="Джакузи с лепестками роз" loading="lazy"><span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
-      <button class="shot-btn rv" style="transition-delay:.12s" aria-label="Открыть фото"><img src="assets/img/firepit.webp" alt="Костровая зона с вином" loading="lazy"><span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
+      <button class="shot-btn w2 h2 rv" aria-label="Открыть фото"><img src="assets/img/aerial.webp" srcset="assets/img/aerial-640.webp 640w, assets/img/aerial-960.webp 960w, assets/img/aerial.webp 1280w" sizes="(max-width:700px) 50vw, (max-width:860px) 33vw, 300px" alt="Глэмпинг с высоты на закате" loading="lazy"><span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
+      <button class="shot-btn rv" style="transition-delay:.06s" aria-label="Открыть фото"><img src="assets/img/jacuzzi-a.webp" srcset="assets/img/jacuzzi-a-640.webp 640w, assets/img/jacuzzi-a-960.webp 960w, assets/img/jacuzzi-a.webp 1280w" sizes="(max-width:700px) 50vw, (max-width:860px) 33vw, 300px" alt="Джакузи с лепестками роз" loading="lazy"><span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
+      <button class="shot-btn rv" style="transition-delay:.12s" aria-label="Открыть фото"><img src="assets/img/firepit.webp" srcset="assets/img/firepit-640.webp 640w, assets/img/firepit.webp 1030w" sizes="(max-width:700px) 50vw, (max-width:860px) 33vw, 300px" alt="Костровая зона с вином" loading="lazy"><span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
       <button class="shot-btn rv" aria-label="Открыть фото"><img src="assets/img/lounge.webp" alt="Лаунж-беседка с балдахином" loading="lazy"><span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
-      <button class="shot-btn w2 rv" style="transition-delay:.06s" aria-label="Открыть фото"><img src="assets/img/pool.webp" alt="Открытый бассейн с шезлонгами" loading="lazy"><span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
+      <button class="shot-btn w2 rv" style="transition-delay:.06s" aria-label="Открыть фото"><img src="assets/img/pool.webp" srcset="assets/img/pool-640.webp 640w, assets/img/pool-960.webp 960w, assets/img/pool.webp 1400w" sizes="(max-width:700px) 50vw, (max-width:860px) 33vw, 300px" alt="Открытый бассейн с шезлонгами" loading="lazy"><span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
       <button class="shot-btn rv" style="transition-delay:.12s" aria-label="Открыть фото"><img src="assets/img/dome-a.webp" alt="Купол с джакузи и флажками" loading="lazy"><span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
-      <button class="shot-btn rv" aria-label="Открыть фото"><img src="assets/img/night.webp" alt="Купола ночью с подсветкой" loading="lazy"><span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
-      <button class="shot-btn rv" style="transition-delay:.06s" aria-label="Открыть фото"><img src="assets/img/restaurant.webp" alt="Ресторан глэмпинга" loading="lazy"><span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
-      <button class="shot-btn rv" style="transition-delay:.12s" aria-label="Открыть фото"><img src="assets/img/events.webp" alt="Мероприятие на природе" loading="lazy"><span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
-      <button class="shot-btn w2 rv" aria-label="Открыть фото"><img src="assets/img/nature.webp" alt="Купола среди ромашкового поля" loading="lazy"><span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
-      <button class="shot-btn rv" style="transition-delay:.06s" aria-label="Открыть фото"><img src="assets/img/terrace.webp" alt="Терраса купола с шезлонгами" loading="lazy"><span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
-      <button class="shot-btn rv" style="transition-delay:.12s" aria-label="Открыть фото"><img src="assets/img/dome-d.webp" alt="Интерьер купола с панорамным видом" loading="lazy"><span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
+      <button class="shot-btn rv" aria-label="Открыть фото"><img src="assets/img/night.webp" srcset="assets/img/night-640.webp 640w, assets/img/night-960.webp 960w, assets/img/night.webp 1280w" sizes="(max-width:700px) 50vw, (max-width:860px) 33vw, 300px" alt="Купола ночью с подсветкой" loading="lazy"><span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
+      <button class="shot-btn rv" style="transition-delay:.06s" aria-label="Открыть фото"><img src="assets/img/restaurant.webp" srcset="assets/img/restaurant-640.webp 640w, assets/img/restaurant-960.webp 960w, assets/img/restaurant.webp 1280w" sizes="(max-width:700px) 50vw, (max-width:860px) 33vw, 300px" alt="Ресторан глэмпинга" loading="lazy"><span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
+      <button class="shot-btn rv" style="transition-delay:.12s" aria-label="Открыть фото"><img src="assets/img/events.webp" srcset="assets/img/events-640.webp 640w, assets/img/events-960.webp 960w, assets/img/events.webp 1280w" sizes="(max-width:700px) 50vw, (max-width:860px) 33vw, 300px" alt="Мероприятие на природе" loading="lazy"><span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
+      <button class="shot-btn w2 rv" aria-label="Открыть фото"><img src="assets/img/nature.webp" srcset="assets/img/nature-640.webp 640w, assets/img/nature-960.webp 960w, assets/img/nature.webp 1280w" sizes="(max-width:700px) 50vw, (max-width:860px) 33vw, 300px" alt="Купола среди ромашкового поля" loading="lazy"><span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
+      <button class="shot-btn rv" style="transition-delay:.06s" aria-label="Открыть фото"><img src="assets/img/terrace.webp" srcset="assets/img/terrace-640.webp 640w, assets/img/terrace.webp 810w" sizes="(max-width:700px) 50vw, (max-width:860px) 33vw, 300px" alt="Терраса купола с шезлонгами" loading="lazy"><span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
+      <button class="shot-btn rv" style="transition-delay:.12s" aria-label="Открыть фото"><img src="assets/img/dome-d.webp" srcset="assets/img/dome-d-640.webp 640w, assets/img/dome-d.webp 864w" sizes="(max-width:700px) 50vw, (max-width:860px) 33vw, 300px" alt="Интерьер купола с панорамным видом" loading="lazy"><span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
     </div>
   </div>
 </section>
@@ -1388,8 +1390,11 @@ addEventListener('scroll', onScroll, {passive:true});
 const scenes = Array.from(document.querySelectorAll('.scene')).map(el => ({
   el,
   media: el.querySelector('.stage-media'),
+  shade: el.querySelector('.stage-shade'),
+  img: el.querySelector('.stage-media img'),
   cam: (el.dataset.cam || '1,1,0,0').split(',').map(Number),
   first: el.dataset.scene === '1',
+  live: false, tf: '',
 }));
 const dots = document.getElementById('dots');
 const dotLinks = dots ? Array.from(dots.querySelectorAll('a')) : [];
@@ -1401,23 +1406,28 @@ const renderScenes = () => {
   raf = 0;
   const vh = innerHeight;
   let active = null;
-  scenes.forEach(({el, media, cam, first}) => {
+  scenes.forEach(s => {
+    const {el, media, cam, first} = s;
     const r = el.getBoundingClientRect();
-    const onScreen = r.bottom > 0 && r.top < vh;
-    if (!onScreen) {
+    /* сцену «поднимаем» на свой слой только пока она на экране —
+       иначе четыре полноэкранных слоя висят в памяти GPU разом */
+    const near = r.bottom > -vh * 0.5 && r.top < vh * 1.5;
+    if (near !== s.live) { s.live = near; el.classList.toggle('is-live', near); }
+    if (r.bottom <= 0 || r.top >= vh) {
       el.classList.remove('is-hold');
       el.classList.toggle('is-past', r.bottom <= 0);
       return;
     }
     const p = clamp01(-r.top / (el.offsetHeight - vh));
     const [s0, s1, x, y] = cam;
-    media.style.transform = `translate3d(${x * p}%, ${y * p}%, 0) scale(${(s0 + (s1 - s0) * p).toFixed(4)})`;
+    const tf = `translate3d(${(x * p).toFixed(2)}%, ${(y * p).toFixed(2)}%, 0) scale(${(s0 + (s1 - s0) * p).toFixed(3)})`;
+    if (tf !== s.tf) { s.tf = tf; media.style.transform = tf; }
 
     /* затемнение: вход из темноты (кроме первой) и уход в темноту */
     let shade = 0;
     if (!first && p < 0.08) shade = (1 - p / 0.08) * 0.6;
     else if (p > 0.86) shade = (p - 0.86) / 0.14 * 0.75;
-    el.style.setProperty('--shade', shade.toFixed(3));
+    s.shade.style.opacity = shade.toFixed(2);
 
     const hold = (first || p >= 0.2) && p < 0.9;
     el.classList.toggle('is-hold', hold);
@@ -1442,6 +1452,14 @@ if (reduceMotion) {
 } else {
   renderScenes();
   addEventListener('scroll', queueScenes, {passive:true});
+  /* Декод больших кадров заранее: иначе он приходится ровно на первый
+     заход в сцену и съедает кадры именно там, где идёт движение. */
+  const idle = window.requestIdleCallback || (f => setTimeout(f, 900));
+  idle(() => scenes.forEach(s => {
+    const im = s.img; if (!im) return;
+    im.loading = 'eager';                       /* снимаем lazy — иначе грузится ровно в момент входа */
+    if (im.decode) im.decode().catch(() => {});
+  }));
   addEventListener('resize', queueScenes, {passive:true});
   /* размеры фото и шрифты доезжают позже — пересчитать */
   addEventListener('load', queueScenes);
